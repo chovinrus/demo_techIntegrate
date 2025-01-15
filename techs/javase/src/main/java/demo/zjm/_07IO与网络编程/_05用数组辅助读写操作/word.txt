@@ -1,0 +1,1075 @@
+– this method returns an IOException if there is an input / output exception encountered
+
+Discussion :
+This method reads characters on the input stream and put a portion on the character buffer array.
+
+This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+The specified number of characters have been read as specified on the len method argument.
+We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+The ready method of the underlying stream returns false, indicating that further input requests would block.
+Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+Java Code Example :
+This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+Java
+package com.javatutorialhq.java.examples;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+/*
+ * Java example source code that uses the read() method of
+ * BufferedReader class
+ * This example java program reads a user input and then we print
+ * the contents of the character array buffer
+ */
+
+public class BufferedReaderReadBufferMethod {
+
+	public static void main(String[] args) {
+		System.out.print("Input characters: ");
+		// Get the user input from console using InputStream
+		InputStream inputStream = System.in;
+		// Read the stream using InputStreamReader
+		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);		
+		// declare the BufferedReader Class			
+		BufferedReader reader = new BufferedReader(inputStreamReader);
+		// declare the character buffer of size 10
+		char[] cbuf = new char[10];
+
+		// catch the possible IOException by the read() method
+		try {
+			// read the input stream with offset of 2 to the character buffer
+			// and limit length of char array buffer to 4
+			reader.read(cbuf, 2, 4);
+			for(char val:cbuf){
+				System.out.print(val);
+			}
+			// close the stream reader's 
+			inputStream.close();
+			inputStreamReader.close();
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+package com.javatutorialhq.java.examples;
+ 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+ 
+/*
+ * Java example source code that uses the read() method of
+ * BufferedReader class
+ * This example java program reads a user input and then we print
+ * the contents of the character array buffer
+ */
+ 
+public class BufferedReaderReadBufferMethod {
+ 
+	public static void main(String[] args) {
+		System.out.print("Input characters: ");
+		// Get the user input from console using InputStream
+		InputStream inputStream = System.in;
+		// Read the stream using InputStreamReader
+		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);		
+		// declare the BufferedReader Class			
+		BufferedReader reader = new BufferedReader(inputStreamReader);
+		// declare the character buffer of size 10
+		char[] cbuf = new char[10];
+ 
+		// catch the possible IOException by the read() method
+		try {
+			// read the input stream with offset of 2 to the character buffer
+			// and limit length of char array buffer to 4
+			reader.read(cbuf, 2, 4);
+			for(char val:cbuf){
+				System.out.print(val);
+			}
+			// close the stream reader's 
+			inputStream.close();
+			inputStreamReader.close();
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+ 
+	}
+ 
+}
+Sample Output :
+Running the delimiter() method example source code of Scanner class will give you the following output
+
+Java
+Input characters: sample string
+1
+Input characters: sample string
+Exception Scenario :
+Java
+Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+ at java.io.BufferedReader.read(Unknown Source)
+ at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+1
+2
+3
+Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+ at java.io.BufferedReader.read(Unknown Source)
+ at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+Similar Method :
+N/A
+Suggested Reading List :
+Java Bufferedreader Class Tutorial
+References :
+Oracle Java 7 API– this method returns an IOException if there is an input / output exception encountered
+
+                 Discussion :
+                 This method reads characters on the input stream and put a portion on the character buffer array.
+
+                 This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+                 The specified number of characters have been read as specified on the len method argument.
+                 We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+                 The ready method of the underlying stream returns false, indicating that further input requests would block.
+                 Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+                 The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+                 Java Code Example :
+                 This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+                 Java
+                 package com.javatutorialhq.java.examples;
+
+                 import java.io.BufferedReader;
+                 import java.io.IOException;
+                 import java.io.InputStream;
+                 import java.io.InputStreamReader;
+
+                 /*
+                  * Java example source code that uses the read() method of
+                  * BufferedReader class
+                  * This example java program reads a user input and then we print
+                  * the contents of the character array buffer
+                  */
+
+                 public class BufferedReaderReadBufferMethod {
+
+                 	public static void main(String[] args) {
+                 		System.out.print("Input characters: ");
+                 		// Get the user input from console using InputStream
+                 		InputStream inputStream = System.in;
+                 		// Read the stream using InputStreamReader
+                 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                 		// declare the BufferedReader Class
+                 		BufferedReader reader = new BufferedReader(inputStreamReader);
+                 		// declare the character buffer of size 10
+                 		char[] cbuf = new char[10];
+
+                 		// catch the possible IOException by the read() method
+                 		try {
+                 			// read the input stream with offset of 2 to the character buffer
+                 			// and limit length of char array buffer to 4
+                 			reader.read(cbuf, 2, 4);
+                 			for(char val:cbuf){
+                 				System.out.print(val);
+                 			}
+                 			// close the stream reader's
+                 			inputStream.close();
+                 			inputStreamReader.close();
+                 			reader.close();
+                 		} catch (IOException e) {
+                 			e.printStackTrace();
+                 		}
+
+                 	}
+
+                 }
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 10
+                 11
+                 12
+                 13
+                 14
+                 15
+                 16
+                 17
+                 18
+                 19
+                 20
+                 21
+                 22
+                 23
+                 24
+                 25
+                 26
+                 27
+                 28
+                 29
+                 30
+                 31
+                 32
+                 33
+                 34
+                 35
+                 36
+                 37
+                 38
+                 39
+                 40
+                 41
+                 42
+                 43
+                 44
+                 45
+                 46
+                 package com.javatutorialhq.java.examples;
+
+                 import java.io.BufferedReader;
+                 import java.io.IOException;
+                 import java.io.InputStream;
+                 import java.io.InputStreamReader;
+
+                 /*
+                  * Java example source code that uses the read() method of
+                  * BufferedReader class
+                  * This example java program reads a user input and then we print
+                  * the contents of the character array buffer
+                  */
+
+                 public class BufferedReaderReadBufferMethod {
+
+                 	public static void main(String[] args) {
+                 		System.out.print("Input characters: ");
+                 		// Get the user input from console using InputStream
+                 		InputStream inputStream = System.in;
+                 		// Read the stream using InputStreamReader
+                 		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                 		// declare the BufferedReader Class
+                 		BufferedReader reader = new BufferedReader(inputStreamReader);
+                 		// declare the character buffer of size 10
+                 		char[] cbuf = new char[10];
+
+                 		// catch the possible IOException by the read() method
+                 		try {
+                 			// read the input stream with offset of 2 to the character buffer
+                 			// and limit length of char array buffer to 4
+                 			reader.read(cbuf, 2, 4);
+                 			for(char val:cbuf){
+                 				System.out.print(val);
+                 			}
+                 			// close the stream reader's
+                 			inputStream.close();
+                 			inputStreamReader.close();
+                 			reader.close();
+                 		} catch (IOException e) {
+                 			e.printStackTrace();
+                 		}
+
+                 	}
+
+                 }
+                 Sample Output :
+                 Running the delimiter() method example source code of Scanner class will give you the following output
+
+                 Java
+                 Input characters: sample string
+                 1
+                 Input characters: sample string
+                 Exception Scenario :
+                 Java
+                 Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                  at java.io.BufferedReader.read(Unknown Source)
+                  at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                 1
+                 2
+                 3
+                 Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                  at java.io.BufferedReader.read(Unknown Source)
+                  at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                 Similar Method :
+                 N/A
+                 Suggested Reading List :
+                 Java Bufferedreader Class Tutorial
+                 References :
+                 Oracle Java 7 API– this method returns an IOException if there is an input / output exception encountered
+
+                                  Discussion :
+                                  This method reads characters on the input stream and put a portion on the character buffer array.
+
+                                  This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+                                  The specified number of characters have been read as specified on the len method argument.
+                                  We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+                                  The ready method of the underlying stream returns false, indicating that further input requests would block.
+                                  Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+                                  The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+                                  Java Code Example :
+                                  This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+                                  Java
+                                  package com.javatutorialhq.java.examples;
+
+                                  import java.io.BufferedReader;
+                                  import java.io.IOException;
+                                  import java.io.InputStream;
+                                  import java.io.InputStreamReader;
+
+                                  /*
+                                   * Java example source code that uses the read() method of
+                                   * BufferedReader class
+                                   * This example java program reads a user input and then we print
+                                   * the contents of the character array buffer
+                                   */
+
+                                  public class BufferedReaderReadBufferMethod {
+
+                                  	public static void main(String[] args) {
+                                  		System.out.print("Input characters: ");
+                                  		// Get the user input from console using InputStream
+                                  		InputStream inputStream = System.in;
+                                  		// Read the stream using InputStreamReader
+                                  		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                  		// declare the BufferedReader Class
+                                  		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                  		// declare the character buffer of size 10
+                                  		char[] cbuf = new char[10];
+
+                                  		// catch the possible IOException by the read() method
+                                  		try {
+                                  			// read the input stream with offset of 2 to the character buffer
+                                  			// and limit length of char array buffer to 4
+                                  			reader.read(cbuf, 2, 4);
+                                  			for(char val:cbuf){
+                                  				System.out.print(val);
+                                  			}
+                                  			// close the stream reader's
+                                  			inputStream.close();
+                                  			inputStreamReader.close();
+                                  			reader.close();
+                                  		} catch (IOException e) {
+                                  			e.printStackTrace();
+                                  		}
+
+                                  	}
+
+                                  }
+                                  1
+                                  2
+                                  3
+                                  4
+                                  5
+                                  6
+                                  7
+                                  8
+                                  9
+                                  10
+                                  11
+                                  12
+                                  13
+                                  14
+                                  15
+                                  16
+                                  17
+                                  18
+                                  19
+                                  20
+                                  21
+                                  22
+                                  23
+                                  24
+                                  25
+                                  26
+                                  27
+                                  28
+                                  29
+                                  30
+                                  31
+                                  32
+                                  33
+                                  34
+                                  35
+                                  36
+                                  37
+                                  38
+                                  39
+                                  40
+                                  41
+                                  42
+                                  43
+                                  44
+                                  45
+                                  46
+                                  package com.javatutorialhq.java.examples;
+
+                                  import java.io.BufferedReader;
+                                  import java.io.IOException;
+                                  import java.io.InputStream;
+                                  import java.io.InputStreamReader;
+
+                                  /*
+                                   * Java example source code that uses the read() method of
+                                   * BufferedReader class
+                                   * This example java program reads a user input and then we print
+                                   * the contents of the character array buffer
+                                   */
+
+                                  public class BufferedReaderReadBufferMethod {
+
+                                  	public static void main(String[] args) {
+                                  		System.out.print("Input characters: ");
+                                  		// Get the user input from console using InputStream
+                                  		InputStream inputStream = System.in;
+                                  		// Read the stream using InputStreamReader
+                                  		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                  		// declare the BufferedReader Class
+                                  		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                  		// declare the character buffer of size 10
+                                  		char[] cbuf = new char[10];
+
+                                  		// catch the possible IOException by the read() method
+                                  		try {
+                                  			// read the input stream with offset of 2 to the character buffer
+                                  			// and limit length of char array buffer to 4
+                                  			reader.read(cbuf, 2, 4);
+                                  			for(char val:cbuf){
+                                  				System.out.print(val);
+                                  			}
+                                  			// close the stream reader's
+                                  			inputStream.close();
+                                  			inputStreamReader.close();
+                                  			reader.close();
+                                  		} catch (IOException e) {
+                                  			e.printStackTrace();
+                                  		}
+
+                                  	}
+
+                                  }
+                                  Sample Output :
+                                  Running the delimiter() method example source code of Scanner class will give you the following output
+
+                                  Java
+                                  Input characters: sample string
+                                  1
+                                  Input characters: sample string
+                                  Exception Scenario :
+                                  Java
+                                  Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                   at java.io.BufferedReader.read(Unknown Source)
+                                   at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                  1
+                                  2
+                                  3
+                                  Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                   at java.io.BufferedReader.read(Unknown Source)
+                                   at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                  Similar Method :
+                                  N/A
+                                  Suggested Reading List :
+                                  Java Bufferedreader Class Tutorial
+                                  References :
+                                  Oracle Java 7 API– this method returns an IOException if there is an input / output exception encountered
+
+                                                   Discussion :
+                                                   This method reads characters on the input stream and put a portion on the character buffer array.
+
+                                                   This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+                                                   The specified number of characters have been read as specified on the len method argument.
+                                                   We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+                                                   The ready method of the underlying stream returns false, indicating that further input requests would block.
+                                                   Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+                                                   The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+                                                   Java Code Example :
+                                                   This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+                                                   Java
+                                                   package com.javatutorialhq.java.examples;
+
+                                                   import java.io.BufferedReader;
+                                                   import java.io.IOException;
+                                                   import java.io.InputStream;
+                                                   import java.io.InputStreamReader;
+
+                                                   /*
+                                                    * Java example source code that uses the read() method of
+                                                    * BufferedReader class
+                                                    * This example java program reads a user input and then we print
+                                                    * the contents of the character array buffer
+                                                    */
+
+                                                   public class BufferedReaderReadBufferMethod {
+
+                                                   	public static void main(String[] args) {
+                                                   		System.out.print("Input characters: ");
+                                                   		// Get the user input from console using InputStream
+                                                   		InputStream inputStream = System.in;
+                                                   		// Read the stream using InputStreamReader
+                                                   		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                   		// declare the BufferedReader Class
+                                                   		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                   		// declare the character buffer of size 10
+                                                   		char[] cbuf = new char[10];
+
+                                                   		// catch the possible IOException by the read() method
+                                                   		try {
+                                                   			// read the input stream with offset of 2 to the character buffer
+                                                   			// and limit length of char array buffer to 4
+                                                   			reader.read(cbuf, 2, 4);
+                                                   			for(char val:cbuf){
+                                                   				System.out.print(val);
+                                                   			}
+                                                   			// close the stream reader's
+                                                   			inputStream.close();
+                                                   			inputStreamReader.close();
+                                                   			reader.close();
+                                                   		} catch (IOException e) {
+                                                   			e.printStackTrace();
+                                                   		}
+
+                                                   	}
+
+                                                   }
+                                                   1
+                                                   2
+                                                   3
+                                                   4
+                                                   5
+                                                   6
+                                                   7
+                                                   8
+                                                   9
+                                                   10
+                                                   11
+                                                   12
+                                                   13
+                                                   14
+                                                   15
+                                                   16
+                                                   17
+                                                   18
+                                                   19
+                                                   20
+                                                   21
+                                                   22
+                                                   23
+                                                   24
+                                                   25
+                                                   26
+                                                   27
+                                                   28
+                                                   29
+                                                   30
+                                                   31
+                                                   32
+                                                   33
+                                                   34
+                                                   35
+                                                   36
+                                                   37
+                                                   38
+                                                   39
+                                                   40
+                                                   41
+                                                   42
+                                                   43
+                                                   44
+                                                   45
+                                                   46
+                                                   package com.javatutorialhq.java.examples;
+
+                                                   import java.io.BufferedReader;
+                                                   import java.io.IOException;
+                                                   import java.io.InputStream;
+                                                   import java.io.InputStreamReader;
+
+                                                   /*
+                                                    * Java example source code that uses the read() method of
+                                                    * BufferedReader class
+                                                    * This example java program reads a user input and then we print
+                                                    * the contents of the character array buffer
+                                                    */
+
+                                                   public class BufferedReaderReadBufferMethod {
+
+                                                   	public static void main(String[] args) {
+                                                   		System.out.print("Input characters: ");
+                                                   		// Get the user input from console using InputStream
+                                                   		InputStream inputStream = System.in;
+                                                   		// Read the stream using InputStreamReader
+                                                   		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                   		// declare the BufferedReader Class
+                                                   		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                   		// declare the character buffer of size 10
+                                                   		char[] cbuf = new char[10];
+
+                                                   		// catch the possible IOException by the read() method
+                                                   		try {
+                                                   			// read the input stream with offset of 2 to the character buffer
+                                                   			// and limit length of char array buffer to 4
+                                                   			reader.read(cbuf, 2, 4);
+                                                   			for(char val:cbuf){
+                                                   				System.out.print(val);
+                                                   			}
+                                                   			// close the stream reader's
+                                                   			inputStream.close();
+                                                   			inputStreamReader.close();
+                                                   			reader.close();
+                                                   		} catch (IOException e) {
+                                                   			e.printStackTrace();
+                                                   		}
+
+                                                   	}
+
+                                                   }
+                                                   Sample Output :
+                                                   Running the delimiter() method example source code of Scanner class will give you the following output
+
+                                                   Java
+                                                   Input characters: sample string
+                                                   1
+                                                   Input characters: sample string
+                                                   Exception Scenario :
+                                                   Java
+                                                   Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                    at java.io.BufferedReader.read(Unknown Source)
+                                                    at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                   1
+                                                   2
+                                                   3
+                                                   Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                    at java.io.BufferedReader.read(Unknown Source)
+                                                    at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                   Similar Method :
+                                                   N/A
+                                                   Suggested Reading List :
+                                                   Java Bufferedreader Class Tutorial
+                                                   References :
+                                                   Oracle Java 7 API– this method returns an IOException if there is an input / output exception encountered
+
+                                                                    Discussion :
+                                                                    This method reads characters on the input stream and put a portion on the character buffer array.
+
+                                                                    This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+                                                                    The specified number of characters have been read as specified on the len method argument.
+                                                                    We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+                                                                    The ready method of the underlying stream returns false, indicating that further input requests would block.
+                                                                    Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+                                                                    The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+                                                                    Java Code Example :
+                                                                    This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+                                                                    Java
+                                                                    package com.javatutorialhq.java.examples;
+
+                                                                    import java.io.BufferedReader;
+                                                                    import java.io.IOException;
+                                                                    import java.io.InputStream;
+                                                                    import java.io.InputStreamReader;
+
+                                                                    /*
+                                                                     * Java example source code that uses the read() method of
+                                                                     * BufferedReader class
+                                                                     * This example java program reads a user input and then we print
+                                                                     * the contents of the character array buffer
+                                                                     */
+
+                                                                    public class BufferedReaderReadBufferMethod {
+
+                                                                    	public static void main(String[] args) {
+                                                                    		System.out.print("Input characters: ");
+                                                                    		// Get the user input from console using InputStream
+                                                                    		InputStream inputStream = System.in;
+                                                                    		// Read the stream using InputStreamReader
+                                                                    		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                                    		// declare the BufferedReader Class
+                                                                    		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                                    		// declare the character buffer of size 10
+                                                                    		char[] cbuf = new char[10];
+
+                                                                    		// catch the possible IOException by the read() method
+                                                                    		try {
+                                                                    			// read the input stream with offset of 2 to the character buffer
+                                                                    			// and limit length of char array buffer to 4
+                                                                    			reader.read(cbuf, 2, 4);
+                                                                    			for(char val:cbuf){
+                                                                    				System.out.print(val);
+                                                                    			}
+                                                                    			// close the stream reader's
+                                                                    			inputStream.close();
+                                                                    			inputStreamReader.close();
+                                                                    			reader.close();
+                                                                    		} catch (IOException e) {
+                                                                    			e.printStackTrace();
+                                                                    		}
+
+                                                                    	}
+
+                                                                    }
+                                                                    1
+                                                                    2
+                                                                    3
+                                                                    4
+                                                                    5
+                                                                    6
+                                                                    7
+                                                                    8
+                                                                    9
+                                                                    10
+                                                                    11
+                                                                    12
+                                                                    13
+                                                                    14
+                                                                    15
+                                                                    16
+                                                                    17
+                                                                    18
+                                                                    19
+                                                                    20
+                                                                    21
+                                                                    22
+                                                                    23
+                                                                    24
+                                                                    25
+                                                                    26
+                                                                    27
+                                                                    28
+                                                                    29
+                                                                    30
+                                                                    31
+                                                                    32
+                                                                    33
+                                                                    34
+                                                                    35
+                                                                    36
+                                                                    37
+                                                                    38
+                                                                    39
+                                                                    40
+                                                                    41
+                                                                    42
+                                                                    43
+                                                                    44
+                                                                    45
+                                                                    46
+                                                                    package com.javatutorialhq.java.examples;
+
+                                                                    import java.io.BufferedReader;
+                                                                    import java.io.IOException;
+                                                                    import java.io.InputStream;
+                                                                    import java.io.InputStreamReader;
+
+                                                                    /*
+                                                                     * Java example source code that uses the read() method of
+                                                                     * BufferedReader class
+                                                                     * This example java program reads a user input and then we print
+                                                                     * the contents of the character array buffer
+                                                                     */
+
+                                                                    public class BufferedReaderReadBufferMethod {
+
+                                                                    	public static void main(String[] args) {
+                                                                    		System.out.print("Input characters: ");
+                                                                    		// Get the user input from console using InputStream
+                                                                    		InputStream inputStream = System.in;
+                                                                    		// Read the stream using InputStreamReader
+                                                                    		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                                    		// declare the BufferedReader Class
+                                                                    		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                                    		// declare the character buffer of size 10
+                                                                    		char[] cbuf = new char[10];
+
+                                                                    		// catch the possible IOException by the read() method
+                                                                    		try {
+                                                                    			// read the input stream with offset of 2 to the character buffer
+                                                                    			// and limit length of char array buffer to 4
+                                                                    			reader.read(cbuf, 2, 4);
+                                                                    			for(char val:cbuf){
+                                                                    				System.out.print(val);
+                                                                    			}
+                                                                    			// close the stream reader's
+                                                                    			inputStream.close();
+                                                                    			inputStreamReader.close();
+                                                                    			reader.close();
+                                                                    		} catch (IOException e) {
+                                                                    			e.printStackTrace();
+                                                                    		}
+
+                                                                    	}
+
+                                                                    }
+                                                                    Sample Output :
+                                                                    Running the delimiter() method example source code of Scanner class will give you the following output
+
+                                                                    Java
+                                                                    Input characters: sample string
+                                                                    1
+                                                                    Input characters: sample string
+                                                                    Exception Scenario :
+                                                                    Java
+                                                                    Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                                     at java.io.BufferedReader.read(Unknown Source)
+                                                                     at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                                    1
+                                                                    2
+                                                                    3
+                                                                    Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                                     at java.io.BufferedReader.read(Unknown Source)
+                                                                     at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                                    Similar Method :
+                                                                    N/A
+                                                                    Suggested Reading List :
+                                                                    Java Bufferedreader Class Tutorial
+                                                                    References :
+                                                                    Oracle Java 7 API– this method returns an IOException if there is an input / output exception encountered
+
+                                                                                     Discussion :
+                                                                                     This method reads characters on the input stream and put a portion on the character buffer array.
+
+                                                                                     This method implements the read method of the Reader class. As an additional convenience, it attempts to read as many characters as possible by repeatedly invoking the read method of the underlying stream. The iterated read continues as long as the following conditions has not been met yet:
+
+                                                                                     The specified number of characters have been read as specified on the len method argument.
+                                                                                     We have not reach the end of stream yet, which means the read method has not return the value -1 which serves as a flag for end of stream.
+                                                                                     The ready method of the underlying stream returns false, indicating that further input requests would block.
+                                                                                     Make a not that If the first read on the underlying stream returns -1 to indicate end-of-file then this method returns -1. Otherwise this method returns the number of characters read.
+
+                                                                                     The IndexOutOfBoundsException will be thrown by this method as we are using a character array as buffer, the rules in dealing with array must also apply. Thus make sure that the characters we want to store on our buffer must not exceed the size of the array.
+
+                                                                                     Java Code Example :
+                                                                                     This java example source code demonstrates the use of ead(char[] cbuf,int off,int len) method of BufferedReader class. Basically it reads the characters and put a portion of it to the character buffer.
+
+                                                                                     Java
+                                                                                     package com.javatutorialhq.java.examples;
+
+                                                                                     import java.io.BufferedReader;
+                                                                                     import java.io.IOException;
+                                                                                     import java.io.InputStream;
+                                                                                     import java.io.InputStreamReader;
+
+                                                                                     /*
+                                                                                      * Java example source code that uses the read() method of
+                                                                                      * BufferedReader class
+                                                                                      * This example java program reads a user input and then we print
+                                                                                      * the contents of the character array buffer
+                                                                                      */
+
+                                                                                     public class BufferedReaderReadBufferMethod {
+
+                                                                                     	public static void main(String[] args) {
+                                                                                     		System.out.print("Input characters: ");
+                                                                                     		// Get the user input from console using InputStream
+                                                                                     		InputStream inputStream = System.in;
+                                                                                     		// Read the stream using InputStreamReader
+                                                                                     		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                                                     		// declare the BufferedReader Class
+                                                                                     		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                                                     		// declare the character buffer of size 10
+                                                                                     		char[] cbuf = new char[10];
+
+                                                                                     		// catch the possible IOException by the read() method
+                                                                                     		try {
+                                                                                     			// read the input stream with offset of 2 to the character buffer
+                                                                                     			// and limit length of char array buffer to 4
+                                                                                     			reader.read(cbuf, 2, 4);
+                                                                                     			for(char val:cbuf){
+                                                                                     				System.out.print(val);
+                                                                                     			}
+                                                                                     			// close the stream reader's
+                                                                                     			inputStream.close();
+                                                                                     			inputStreamReader.close();
+                                                                                     			reader.close();
+                                                                                     		} catch (IOException e) {
+                                                                                     			e.printStackTrace();
+                                                                                     		}
+
+                                                                                     	}
+
+                                                                                     }
+                                                                                     1
+                                                                                     2
+                                                                                     3
+                                                                                     4
+                                                                                     5
+                                                                                     6
+                                                                                     7
+                                                                                     8
+                                                                                     9
+                                                                                     10
+                                                                                     11
+                                                                                     12
+                                                                                     13
+                                                                                     14
+                                                                                     15
+                                                                                     16
+                                                                                     17
+                                                                                     18
+                                                                                     19
+                                                                                     20
+                                                                                     21
+                                                                                     22
+                                                                                     23
+                                                                                     24
+                                                                                     25
+                                                                                     26
+                                                                                     27
+                                                                                     28
+                                                                                     29
+                                                                                     30
+                                                                                     31
+                                                                                     32
+                                                                                     33
+                                                                                     34
+                                                                                     35
+                                                                                     36
+                                                                                     37
+                                                                                     38
+                                                                                     39
+                                                                                     40
+                                                                                     41
+                                                                                     42
+                                                                                     43
+                                                                                     44
+                                                                                     45
+                                                                                     46
+                                                                                     package com.javatutorialhq.java.examples;
+
+                                                                                     import java.io.BufferedReader;
+                                                                                     import java.io.IOException;
+                                                                                     import java.io.InputStream;
+                                                                                     import java.io.InputStreamReader;
+
+                                                                                     /*
+                                                                                      * Java example source code that uses the read() method of
+                                                                                      * BufferedReader class
+                                                                                      * This example java program reads a user input and then we print
+                                                                                      * the contents of the character array buffer
+                                                                                      */
+
+                                                                                     public class BufferedReaderReadBufferMethod {
+
+                                                                                     	public static void main(String[] args) {
+                                                                                     		System.out.print("Input characters: ");
+                                                                                     		// Get the user input from console using InputStream
+                                                                                     		InputStream inputStream = System.in;
+                                                                                     		// Read the stream using InputStreamReader
+                                                                                     		InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                                                                                     		// declare the BufferedReader Class
+                                                                                     		BufferedReader reader = new BufferedReader(inputStreamReader);
+                                                                                     		// declare the character buffer of size 10
+                                                                                     		char[] cbuf = new char[10];
+
+                                                                                     		// catch the possible IOException by the read() method
+                                                                                     		try {
+                                                                                     			// read the input stream with offset of 2 to the character buffer
+                                                                                     			// and limit length of char array buffer to 4
+                                                                                     			reader.read(cbuf, 2, 4);
+                                                                                     			for(char val:cbuf){
+                                                                                     				System.out.print(val);
+                                                                                     			}
+                                                                                     			// close the stream reader's
+                                                                                     			inputStream.close();
+                                                                                     			inputStreamReader.close();
+                                                                                     			reader.close();
+                                                                                     		} catch (IOException e) {
+                                                                                     			e.printStackTrace();
+                                                                                     		}
+
+                                                                                     	}
+
+                                                                                     }
+                                                                                     Sample Output :
+                                                                                     Running the delimiter() method example source code of Scanner class will give you the following output
+
+                                                                                     Java
+                                                                                     Input characters: sample string
+                                                                                     1
+                                                                                     Input characters: sample string
+                                                                                     Exception Scenario :
+                                                                                     Java
+                                                                                     Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                                                      at java.io.BufferedReader.read(Unknown Source)
+                                                                                      at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                                                     1
+                                                                                     2
+                                                                                     3
+                                                                                     Input characters: Exception in thread "main" java.lang.IndexOutOfBoundsException
+                                                                                      at java.io.BufferedReader.read(Unknown Source)
+                                                                                      at com.javatutorialhq.java.examples.BufferedReaderReadBufferMethod.main(BufferedReaderReadBufferMethod.java:33)
+                                                                                     Similar Method :
+                                                                                     N/A
+                                                                                     Suggested Reading List :
+                                                                                     Java Bufferedreader Class Tutorial
+                                                                                     References :
+                                                                                     Oracle Java 7 API

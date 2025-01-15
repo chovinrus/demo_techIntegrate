@@ -1,0 +1,84 @@
+1.Collections.unmodifiableCollection 获取只读集合
+
+2.集合分为Collection体系(List,Set)和Map体系(Map)
+List*5、Set*3、Map*5
+核心：ArrayList、LinkedArrayList、HashSet、HashMap
+链式存储：LinkedHashSet、LinkedHashMap
+支持排序：TreeSet、TreeMap
+线程安全：Vector、CopyOnWriteArrayList、HashTable、ConcurrentHashMap
+数据结构：Stack是Vector的子类，Queue是与List、Set同级别的接口
+
+3.Collection实现类
+- Collection接口实现了Iterable接口，
+- 子接口有List、Set和Queue，一级抽象实现类有AbstractCollection去给所有的
+
+- List实现类一般都继承了AbstractCollection的抽象子类AbstractList，主要有ArrayList、Vector，
+都实现了RandomAccess接口标识随机读取，
+- LinkedList同时实现了Queue接口（offer入队，poll出队，peek取队首元素）
+- Stack是Vector的子类（pop出栈，push入栈，peek取栈顶元素）。
+
+-Set实现类一般都去继承了AbstractCollection的抽象子类AbstractSet，主要有HashSet、TreeSet，TreeSet实现了SortedSet标识能够排序
+- LinkedHashSet是HashSet的子类
+
+4.Map实现类
+Map实现类一般都去继承了AbstractMap抽象类，，主要实现类有HashMap、TreeMap，TreeMap实现了用于标识的SortedMap接口。线程安全的HashTable没继承AbstractMap接口
+
+5.List、Set、Map的特点
+List和Set允许使用迭代器遍历，Set不能用下标遍历，List有序（存入顺序和取出顺序一致），Set元素唯一无序，Map的Key唯一无序
+
+6.迭代器
+Iterable接口中定义了迭代相关方法
+iterator方法获取iterator对象，Iterator的方法有next、hasNext和remove
+List接口支持listIterator方法获得ListIterator对象，ListIterator对象支持hasPrevious、previous、set、add方法
+
+7.Splitrator拆分迭代器，可以并行执行
+https://www.bilibili.com/video/BV1fw411a7p6/?spm_id_from=333.337.search-card.all.click&vd_source=35a7308242fc0f2f7ea2ca32ed8b4bec
+
+8.集合线程安全的三种实现形式
+Vector、HashTable的同步方法的形式
+Collections封装的线程安全内部类，在return的时候将返回内容用加锁
+JUC并發容器：Blocking、CopyOnWrite、Concurrent
+
+9.fail-fast机制与modCount
+一种软件设计策略，fail-fast要让系统的问题尽早地暴露，用于并发操作集合容器时的失败处理机制。Collection下除了JUC外所有Iterator实现类都是按照fail-fast来设计的，这些集合都是不安全的。
+modCount在迭代器中的意义就是避免执行迭代过程中容器本身发生变化，如果要执行remove可以使用Iterator自带的remove方法，在remove的同时游标会进行--操作适应size变化。解决fail-fast问题的三种思路：使用JUC下的线程安全类如CopyOnWriteArrayList；使用集合类的同步控制方法；使用迭代器中的删除方法或倒序进行循环删除；
+
+10.失败安全机制fail-safe下遍历集合时不需要抛出concurrentModificationException，这类容器如CoyOnWriteArray、concurrentHashMap的迭代器实际上是复制了一分容器进行遍历，所以原容器的变化并不影响遍历进行。JUC包下的容器都是fail-safe，并且都是在数据的一致性跟可用性中选择了可用性，允许出现数据的短期不一致，但是保证最终数据的一致性。
+值得注意CopyOnWriteArrayList的迭代器中的set、remove和add方法被禁用，否则抛出异常;ConcurrentHashMap中的Entry的value和next都被volatile修饰如果迭代位置之前修改entry不影响迭代结果，在当前位置之后将反应在迭代结果中
+
+11.采用JDK自带的不可变类Integer和String作为Map的Key可以很好地帮助避免实现equal方法和hashCode方法
+
+12.List实现类转数组
+List提供了toArray方法，空参返回的将是Obj数组,此时传入的参数应当是同泛型类型的数组，数组长度为0实际返回len会随着size伸缩，不为零则增加GC负担，大于size则造成浪费
+
+13.Collections工具类排序方法
+提供了sort、reverse、shuffle、swap等方法，sort的实现原理是TimeSort，结合了插排和归并排序，数组个数小于32的时候使用二分插入排序，大于32时使用归并排序
+
+14.comparable和comparator
+前者属于lang包，提供compareTo方法，一般由容器泛型本身实现，comparator是util包的接口，一般由使用者实现
+Collections提供的sort方法默认执行容器的compareTo来进行比较，也可以接收ComparaTo作为第二个参数，覆盖原来的comparable，按使用者的意图完成排序
+
+15.Collections工具类查找替换方法
+binarySearch传入容器和关键字进行查找
+max可以直接找出最大元素
+frequency可以统计指定元素在集合中出现的次数
+replaceAll方法可以完成指定的a替换b
+fill可以用指定元素替换原集合中的所有元素
+
+16.Collections工具类同步控制方法，提供了多个synchronizedXxx()方法可以将常见集合传入包装成线程同步的集合，本质是继承自SynchronizedCollection,该类所有方法return语句都用定义的syntax常量进行加锁
+
+17.Vector是按两倍扩容，还可以指定增长的空间大小作为初始化的第二个参数
+
+18.ArrayList动态数组的复制操作底层都是调用的System.arraycopy方法
+
+19.indexOf返回的是第一次出现指定元素的位置，lastIndexOf返回最后一次出现指定元素的位置，remove参数是Obj的话删除的第一次出现的位置，要删除全部可以用removeAll传入集合，removeIf也是常见的过滤删除方法，传入predicate即可
+
+20.源码解读
+elementdata用transient关键字修饰帮助按实际size需要进行序列化，具体实现是序列化的过程会调用相应的readObject方法和writeObject方法，达到节省空间的目的
+grow方法基本步骤：确定minCapacity，确定是否要grow、newCapacity和minCapacity比较、newCapacity和MAX_SIZE比较确定是否要设置hugeCapacity
+扩容因子为什么要确定为1.5？因为唯一操作运算速度快
+
+21.ConcurrentHashMap
+在jdk1.7中使用分段锁，给整个entry链表加锁，在8之后只对链表的头结点加锁
+
+22.

@@ -1,0 +1,29 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="redis-sentinel" type="docker-deploy" factoryName="docker-image" server-name="Docker">
+    <deployment type="docker-image">
+      <settings>
+        <option name="imageTag" value="redis:latest" />
+        <option name="command" value="/usr/local/bin/redis-server /usr/local/etc/redis-sentinel-container.conf --sentinel" />
+        <option name="containerName" value="redis-sentinel" />
+        <option name="portBindings">
+          <list>
+            <DockerPortBindingImpl>
+              <option name="containerPort" value="26379" />
+              <option name="hostIp" value="192.168.172.137" />
+              <option name="hostPort" value="26379" />
+            </DockerPortBindingImpl>
+          </list>
+        </option>
+        <option name="volumeBindings">
+          <list>
+            <DockerVolumeBindingImpl>
+              <option name="containerPath" value="/usr/local/etc/redis-sentinel-container.conf" />
+              <option name="hostPath" value="/etc/redis-sentinel-container.conf" />
+            </DockerVolumeBindingImpl>
+          </list>
+        </option>
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>

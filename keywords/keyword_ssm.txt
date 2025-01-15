@@ -1,0 +1,152 @@
+1.beanfactory factorybean
+beanfactory是为spring框架实现用的ioc容器接口，
+factorybean是一种特殊的bean接口，是工厂模式作为工厂类的应用，实现该接口会注册两个bean，重写getObject方法可以返回指定的产品类对象，当获取工厂类时发现拿到的是产品类，真正的工厂类name变为了与符号+工厂类名
+
+2.beanfactory和applicationContext
+两者都是ioc容器接口，前者常用作框架内部使用，创建bean使用懒加载，后者是框架用户使用，创建对象是懒汉式
+
+3.bean和其他对象注解的区别
+- 可以作用在方法上
+- 对象可以跨依赖被获取
+
+4.属性注入的注解
+autowire，resource按类型，resource/autowire+qualifier可以指定名字
+@value注入非对象属性
+
+5.IOC和AOP
+ioc和aop是spring框架的主要两个功能支持。
+ioc是实践创建型的设计模式，把对象创建的逻辑交给容器，同时依赖的管理也交给容器，这样一来开发者可以专注于业务代码的开发，不用关心对象本身，容器使用配置化的方式来管理bean组件，也有利于实现解耦。
+aop是代理模式在spring框架中的实践，在不修改原有代码的情况下给原有功能进行增强的编码方式。
+
+6.bean的作用域
+singleton、prototype、request、session、application、web、thread
+
+7.bean的生命周期
+- 实例化、属性赋值、初始化、销毁
+- 实例化:构造器
+- 属性赋值:依赖注入
+- 初始化:手动声明init方法
+- 销毁:手动声明destroy方法
+InstantiationAwareBeanPostProcessor和BeanPostProcessor分别在实例化和初始化前后进行增强,aware接口用于在Bean装配的过程中获取容器中一些核心组件或上下文等
+
+8.cglib和jdk两种aop实现方式
+- jdk要求方法所在类实现了接口，cglib没有要求
+- cglib是直接操作类对象，jdk在字节码的加载第一阶段获取二进制流时候进行代理
+
+9.aop术语:切点,增强
+代理类关键注解@Aspect,@Pointcut,@Before,@After,@Around,@AfterReturning
+
+10.aspectJ是提供完整的aop支持,可以避免方法非public和自调用的问题.本身是编译时增强(静态代理),spring-ioc是运行时增强
+
+19.事务传播行为propagation
+- required, 加入事务，无则开启事务
+- support 加入事务，无则非事务
+- requires-new 开启新事务
+- not-support，不支持事务，有则挂起
+- mandatory，有事务加入，没有抛异常
+- never 以非事务方式运行，有则抛出异常
+- nested 支持嵌套事务，即外层事务，不受内层事务的影响，被调用者没有事务就新开启一个事务
+
+20.spring模块组成
+核心容器、持久层支持、web层支持、测试模块
+核心容器主要四个部分：bean、core、context、spEL表达式
+
+21.spring出现的设计模式应用
+- 单例模式
+- 工厂模式
+- 观察者模式 时间驱动模型，基于监听器实现
+- 代理模式
+- 适配器模式 AOP的实现也用到了适配器模式
+- 装饰者模式
+
+22.bean注册过程
+beandefinition -> beanwrapper(属性注入) -> bean
+
+23.四种bean的实例化方式
+- 构造器
+- 静态工厂方式
+- 实例工厂方式
+- factoryBean方式
+
+24.循环依赖的解决思路
+提前暴露bean使之允许被注入到别的bean中，但仅限于单例模式下，原型模式下不支持提前暴露，构造器注入也不支持
+
+24. conditional注解
+bean装配时的一个条件判断注解，传入condition接口数组
+
+25.一级缓存、二级缓存
+一级缓存是sqlsession级别的，二级缓存是sqlsessionFactory级别的 
+查询失效的情形
+- 跨作用范围的查询
+- 查询条件不一致
+- 执行了增删改操作
+- 手动清空缓存
+
+二级缓存常用配置
+是否只读readOnly，只读返回缓存引用，快但是不安全；false返回的是缓存的序列化拷贝
+缓存的size指定维持的缓存上限数量，超出时要按策略执行清除
+二级缓存的回收策略evication：LRU(default)、FIFO、SOFT_REF、WEAK_REF
+
+26.#{}和${}的区别
+前者时编译预处理,使用prestatement进行set赋值,${}是直接进行字符串的拼接,使用#{}可以有效地避免SQL注入,本质上二者的区别就像jdbc里的statement和prestatement,使用的细节上有个问题就是引号使用井号的时候可以省略
+
+27.如何理解半自动orm框架
+即没有完全做到去SQL,仍然要编写一定的SQL，原生的SQL支持的查询语句更灵活更复杂
+
+28.MySQL是否支持延迟加载
+支持association和Collection的关联对象延迟加载，一个一对一，一个一对多，使用时要开启配置
+原理是用cglib实现动态代理，不调用关联对象的话是null，调用时会通过拦截器增强去执行sql查询该对象
+
+29.分页插件实现的原理也是动态代理拦截接口对象改变SQL
+
+30.动态SQL的原理，对象导航图语言去拼凑sql
+
+31.mapper-xml的文件与mybatis的Configration映射关系
+sql 	boundsql
+<update,select,..> 		mappedstatement
+<resultmap> 	resultmap + (子元素)resultmapping
+<parameter>		parametermap + (子元素)parametermapping
+
+32.Mybatis有三种基本的Executor:SimpleExecutor、ReuseExecutor、BatchExecutor。
+- SimpleExecutor：每执行一次 update 或 select，就开启一个 Statement 对象，用完立刻关闭 Statement 对象。
+- ReuseExecutor：执行 update 或 select，以 sql 作为key 查找 Statement 对象，存在就使用，不存在就创建，用完后，不关闭 Statement 对象，而是放置于 Map
+- BatchExecutor：完成批处理。
+
+33.springmvc工作流
+request -> dispacherservlet.defult-servlet-handler -> return static resource
+---------------------------------------------
+request 
+1-> dispacherservlet.handlermapping return HandlerExcutionChain
+2-> choose right HandlerAdapter 
+3-> preHandler 
+4-> executing handler
+5-> message convertor, dataformat
+6-> 验证封装到指定Result格式中
+7-> return modelandview to dispacherservlet
+8-> posthandler
+9-> 渲染view
+10-> afterCompletion
+11-> return modelandview to client
+
+34.拦截器的三个抽象方法
+preHandle 控制器方法执行之前，决定是否放行
+postHandle 控制器方法执行之后
+afterCompletion 渲染完视图之后
+
+35.域共享对象
+request
+servlet-api,modelandview,model,map,modelmap(本质上都是bindingawaremodelmap)
+session
+application
+
+36.configuration和component的区别
+@Configration类中的@Bean注解的方法会被动态代理，调用此方法获取的是同一个实例
+@Component获取的是新的对象
+
+37.Spring常用注解
+@Bean,@Component,@Controller,@Service,@Dao,@Repositry,@Configuration,@Import
+@AutoWired,@Value,@Conditional,@Profile
+@RequestMapping
+@Aspect
+
+38.

@@ -1,0 +1,41 @@
+1.curity的功能
+认证、授权和防止攻击
+
+2.curity认证功能底层原理：过滤器链链->代理Security FilterChain -> UserDetailsManager 实现User的增删改查
+
+3.csrf
+跨域请求伪装，诱导浏览者点击链接，获取浏览器的cookie，进而伪装成浏览者请求目标服务器，将攻击代码放入请求参数中，从而完成攻击活动
+解决csrf的思路：
+	- 发出请求时加上token，一般放在form的隐藏input中，spring Security就是这种实现思路
+	- 同源策略，不同源的网页资源被隔离，同源时同一个协议、主机和端口
+	- Samesite cookie策略， 和同源策略类似，对服务的网站资源进行隔离，通过在cookie中设置samesite的值来实现
+
+4.密码加密存储原因：谨防sql注入获取数据库中的密码
+密码加盐，彩虹表：彩虹表针对常见密码建表，如123456，按md5哈希后的暗文，加盐就是初始密码和特殊内容组合后进行哈希
+自适应单向函数：在进行密码匹配时会有意占用大量系统资源（CPU,内存等），Spring Security提供了一些PasswordEncoder的实现类，比如BCryptPasswordEncoder
+
+5.security 自定义内容：拦截请求与放行请求、login页，认证成功响应、认证失败响应、注销响应、未认证响应
+
+6.corf 浏览器的同源策略，可以在服务器解决这个问题
+
+7.用户认证信息：用户信息+用户凭证+用户权限
+获取用户认证信息的方式securityContext -> Authentication -> pricipal + credential + authorities
+
+8.会话并发处理：账号登录顶号
+
+9.用户权限控制（授权）：基于权限和基于角色。
+
+10.RBAC 基于角色的权限控制，不用security，直接建表完成逻辑
+
+11.Oauth2四个角色：resource owner、resource server、client、auth server
+获取令牌两次请求：client->r server, r server -> r owner
+
+12.oauth2 四种授权模式
+凭证式: 直接返回token,一般是应用对应用,机器对机器
+密码式: client应用直接拿用户密码信息去申请凭证. 一般是给第一方客户应用的,不担心暴露
+隐藏式: 需要r owner授权给资源服务器, auth server给client 返回token, token要进行解析破解
+授权码式: 针对第三方应用,auth server给client 授权码，client和auth server确认授权码(通过秘钥)后可以收到auth server返回的token
+
+13.session,token两种认证方式
+
+

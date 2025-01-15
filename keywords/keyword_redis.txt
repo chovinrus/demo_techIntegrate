@@ -1,0 +1,74 @@
+本笔记基于青空的霞光
+
+1.什么是redis
+键值存储、基于内存的NoSQL数据库，支持数据持久化、横向扩展、主从复制等
+
+2.nosql的特点
+去acid、不遵守SQL标准、消除数据之间的关联性
+优势：高性能、数据模型灵活、易扩展、高可用
+
+3.基本操作
+select 		选择数据库
+set、mset、get	数据存取
+keyname规范	用冒号隔开
+expire、ttl、persist	设置过期、设置永久
+keys、exists 	查看所有键、查看是否存在
+remove		移动key到数据库
+rename		修改键名
+incr、incrby、decr	数值增减
+type		数据类型
+
+4.数据类型
+hash、list、set、sortedset
+lrange	list类型的操作和python相似
+rpoplpush	
+blpush、blpop	队列阻塞操作
+sortedset按score排序
+
+5.protectedmode修改为no，开启非本地访问（shell）
+
+6.rdb持久化 conf设置定时保存，使用bgsave后台执行
+
+7.aof	每秒或每次写命令执行写日志
+appendonly设置yes开启aop日志
+恢复数据的速度比较慢，优化方案：自动重写写日志
+
+8.redis事务和mysql的不同：本质上是命令队列，存在队列中未执行
+multi、exec、discard
+
+9.redis 乐观锁aba问题的解决：版本号
+命令：watch/unwatch，exct后会自动unwatch
+
+10.springredistemplate，事务的支持需要注释springJDBC 的Transaction注解
+
+11.
+查看主从关系 info replication
+主从复制  文件配置replicateof ip port，复制方式是全量复制（第一次）+ 增量复制（后续）
+replicateof no one命令取消主从关系
+从节点数据是只读的不允许修改
+
+12.哨兵模式
+哨兵节点监控所有节点，主节点挂掉选举从节点作为新的主节点，并将原主节点从属于新主节点
+选举原则是优先级->偏移量->随机，哨兵可以有多个。在配置中，判定主节点无效对哨兵个数有要求（多少个哨兵认定失效）
+Jedis获取主节点进行写操作一般去从Sentinel获取resource来获得jedis对象作为主节点
+
+13.redis集群写数据分为节点插槽进行选择：
+根据插槽选择，插槽就是key值经过crc冗余校验取模后获得的哈希数值
+Redis集群模式下主节点挂掉会启用从节点作为主节点，负责插槽的节点全部挂掉后集群将不可用。
+jedis操作集群直接使用clusterJedis操作
+
+14.基于redission的分布式锁
+底层机制是redis的setnx（set not exist），本质上拿一个实在的变量（一般是特殊的任务专属的值uuid等）作为自己的锁，执行完临界代码后释放变量，为防止节点挂掉锁一直不释放，一般会设置expire值，redission主要做了expire时长的适应增长
+两个因使用公用锁，因为expire错误删除的情形：1.a超时了b拿到了锁，b还没完成，a删除锁  2.并发情形：还没来得及删除锁，锁瞬间超时了，b刚拿到锁就被删除
+
+
+15.缓存失效三大问题
+穿透：一直访问不存在的数据，导致redis命中率低。解决思路是缓存不存在数据/布隆过滤器
+击穿：热点数据失效期间，瞬间有大量访问请求该数据。解决思路：失效前刷新缓存、分级缓存设置不同的失效时长、加锁在命中失败的时候写入缓存（加锁也要考虑高并发的问题，一旦高并发加锁要用tryLock，try失败的线程会被挂起一段时间并尝试重新命中缓存）
+雪崩：大量key在同一时间过期或reids崩掉时大量请求去数据库申请数据并建立缓存，解决思路是熔断降级或设置高可用集群
+
+16.redis缓存session
+spring.session.store-type指定redis即可,导入spring-session-data-redis依赖
+
+
+

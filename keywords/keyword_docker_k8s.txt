@@ -1,0 +1,27 @@
+1.k8s基本架构
+master-worker架构
+- master node
+    - kube-apiserver            请求接口中心
+    - schduler                  worker node的调度器，选择产生最合适的worker node
+    - Controller Manager        woker node的监控器
+    - etcd                      持久化服务器
+- work node
+    - kubelet        worker node的监视器
+    - kube-proxy    代理服务器，负责外部网络的负载均衡等
+    - containner runtime wn的运行环境
+
+2.pod,namespace
+pod 若干个容器共享使用ip的单位，相当于逻辑主机，每个pod有一个pause容器和若干个业务容器
+pause容器 提供ip和挂载卷给业务容器使用
+namespace 是为pod划分隔离的命名空间
+
+3.创建pod并拉取镜像
+kubectl apply -f nginx-pod.yaml
+
+4.deployment
+负责创建更新pod,使之拥有自愈,扩缩容，升级回滚的功能
+
+5.service
+决定如何对外暴露服务
+四种类型cluster,
+

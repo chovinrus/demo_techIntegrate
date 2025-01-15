@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="diff-instantiation-method" />
+        <module name="design_pattern" />
+        <module name="ekl" />
+        <module name="k8s" />
+        <module name="distributeLock" />
+        <module name="springboot" />
+        <module name="swagger" />
+        <module name="docker" />
+        <module name="datastruct_algorithm" />
+        <module name="nio" />
+        <module name="linux" />
+        <module name="redis-cluster-construction" />
+        <module name="mysql" />
+        <module name="javase" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="diff-initialization-method" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="datastruct_algorithm" options="-parameters" />
+      <module name="demo_techIntegrate" options="" />
+      <module name="design_pattern" options="-parameters" />
+      <module name="diff-initialization-method" options="-parameters" />
+      <module name="diff-instantiation-method" options="-parameters" />
+      <module name="distributeLock" options="-parameters" />
+      <module name="docker" options="-parameters" />
+      <module name="ekl" options="-parameters" />
+      <module name="io" options="" />
+      <module name="javase" options="-parameters" />
+      <module name="k8s" options="-parameters" />
+      <module name="linux" options="-parameters" />
+      <module name="mysql" options="-parameters" />
+      <module name="nio" options="-parameters" />
+      <module name="redis" options="" />
+      <module name="redis-cluster-construction" options="-parameters" />
+      <module name="spring" options="" />
+      <module name="springboot" options="-parameters" />
+      <module name="swagger" options="-parameters" />
+      <module name="techs" options="" />
+      <module name="theory_408" options="" />
+    </option>
+  </component>
+</project>

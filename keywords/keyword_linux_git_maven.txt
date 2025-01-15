@@ -1,0 +1,74 @@
+1.get merge和git rebase
+合并都是基于feather的最终版本合并,区别就是合并的结果merge不会保留feather的过去中间版本
+
+2.进程状态/资源监控命令
+ps 查看进程信息
+lsof 查看文件和网络连接占用信息
+netstat 网络接口, 连接等信息
+top 实时查看资源状况
+kill -15 正常停止进程
+kill -9 杀死进程
+查看端口使用-i参数即可
+
+3.其他常用命令
+man 查看命令手册
+
+4.ll文件查看的内容主要有？
+- 文件属性10数位字符:属性(文件,链接或目录)+用户/用户组/其他用户的权限
+- 链接数量
+- 所属用户, 用户组
+- 文件大小
+- 最终修改时间
+
+5.常见文件操作
+- vim编辑文件
+- rm
+- rm -r
+- touch修改文件时间
+- cat 打印内容
+- chmod修改权限 r4w2-1
+- mv
+- cp
+- find 查询文件、文件夹
+- mount 挂载文件
+
+6.用户、用户组
+su 本质新开一个拥有root权限的shell，获取root用户的密码
+sudo 短暂获得更高权限，需要当前用户密码
+用户组可以支持按组赋予权限
+
+7.资源监视
+top 查看资源占用动态
+free 内存使用动态
+lsblk 硬盘使用情况
+
+8.三种网络
+桥接 把宿主机器当路由器，要设置静态ip
+nat 把宿主当DHCP主机
+仅主机 只能和主机通信
+
+9.maven的父子模块和聚合模块
+父子模块指的是模块的依赖继承的角度说的，工程的聚合是指按顺序构建自动项目
+
+10.构建的过程
+- 清理
+- 编译
+- 测试
+- 报告
+- 打包
+- 安装
+- 部署
+
+11.maven的作用范围,依赖传递
+conpile, test, provided
+test在main目录下无效,只有conpile在部署环境有效
+
+12.网络请求
+curl
+
+13.dependencies和dependcyManagement的区别
+习惯上后者作为依赖声明，并指定版本号，引入依赖要使用dependency标签，不想使用声明的版本号可以直接覆盖
+
+14.import作用范围
+在dependencyManagement中的dependency中，相当于把完整的别人项目中的dependencyManagement声明的
+

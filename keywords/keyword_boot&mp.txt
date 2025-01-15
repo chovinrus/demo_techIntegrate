@@ -1,0 +1,36 @@
+1.boot的核心注解
+@SpringbootApplictaion
+= @SpringBootConfigration 和Configration本质相同
++ @EnableAutoConfigration 开启自动配置的组件
++ @ComponentScan 扫描config组件
+
+2.@Profile注解
+作用在Bean类上，声明此组件在指定profile下生效
+
+3.全局异常处理
+用@ControllerAdvice注册全局异常处理类，并实现异常处理方法，用@ExceptionHandler注解方法完成处理
+
+4.boot自动配置
+- 自动把第三包的bean组件自动注册到IOC容器中,不需要开发者做具体的配置,只需要在启动类加上@SpringbootAppication注解就能实现.starter依赖组件的bean必须是Configration+Bean注解的形式注册Bean。
+- 注解@EnableAutoConfiguration是自动配置的核心,按照Springboot约定把依赖的包的全路径放在classpath:META-INF/spring.factories文件中
+- @SpringbootAppication注解导入AutoConfigurationImportSelector注解，该注解导入配置类后以候选类list的形式存储，经过筛选，再通过SpringFactoriesLoader加载后完成配置
+
+5.什么是springboot
+- 快速构建Spring应用的脚手架，可以快速整合第三方技术到Spring当中,Spring官网提供了一堆现成的第三方继承依赖，这样依赖既可以减少配置，又可以减少依赖管理
+- 独立运行, boot项目内嵌了servlet容器如tomcat,直接运行jar包即可
+- 提供了一些生产级别的特性如监控指标,外部化配置等
+
+6.ApplicationRunner
+application启动完成之后可以执行一些定制的动作，如初始化逻辑，数据加载
+
+7.如何理解boot框架中的starters
+spring项目集成其他技术组件的快捷方式，遵循约定实现自动装配，工程内部完成依赖管理，boot项目使用时只导入一个stater，在yml文件进行少量的配置就能使用依赖的第三方技术
+常见的stater有web、data-redis、jdbc等待
+
+8常见配置的加载顺序
+properties->yml->os path variables->command parameter
+
+9.springboot dev tools作用，支持热部署
+
+10.mp常用注解
+TableName，Id

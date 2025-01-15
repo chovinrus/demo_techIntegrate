@@ -1,0 +1,19 @@
+@Override
+public void run() {
+    try {
+        while (true) {
+            int count = selector.select();
+            // TODO 注释这一行就收不到响应的消息了
+            System.out.println(Thread.currentThread().getName());
+            Set<SelectionKey> selectionKeys = selector.selectedKeys();
+            Iterator<SelectionKey> iterator = selectionKeys.iterator();
+            while (iterator.hasNext()) {
+                this.dispatch(iterator.next());
+                iterator.remove();
+            }
+
+        }
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+}

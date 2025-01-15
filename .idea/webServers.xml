@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c9147abb-a740-4ad6-8ff2-a3ec0134f826" name="mysql">
+        <fileTransfer rootFolder="/home/zjm" accessType="SFTP" host="192.168.172.138" port="22" sshConfigId="ce99740d-e810-4087-95a9-7c440d31cace" sshConfig="zjm@192.168.172.138:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
