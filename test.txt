@@ -1,1 +1,1 @@
-Process1 正在写入数据..
+Process1 正在写入数据
